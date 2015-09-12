@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+
+    <title>Hello WorldA</title>
+
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <link href="css/pi.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/fa.js?v2"></script>
+
+    <style>
+        section {
+            border-bottom: 1px dotted;
+            padding-bottom: 10px;
+        }
+
+        h4 {
+            color: orangered;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+
+<body onLoad="memory_init()">
+
+<div style="display: block;" id="mainBox">
+
+    <div class="content">
+
+        <!--<h1>照明点滅テスト</h1>-->
+
+        <section>
+            <div class="container">
+                <div style="border: 1px solid red; width: 80%; margin: 0 auto 10px auto; padding: 5px; text-align: center"
+                     id="neonDisp" class="">
+                    <b><span style="color: red;">♩ </span><span id="a" style="color: black;">♩ </span><span
+                            style="color: #ff23a4;">♩ </span>同期中...<span id="b" style="color: black;"> ♩</span><span style="color: #740525;"> ♩</span><span style="color: #740525;"> ♩</span></b><br>
+
+                </div>
+                <p class="content">
+                    <!-- TODO contents here -->
+                </p>
+
+                <!--<div style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 20px; margin-top: 20px;" class="hide">-->
+                    <!--<button type="button" class="btn btn-default btn-lg" id="syncStartBtn">-->
+                        <!--<span class="glyphicon glyphicon-play" aria-hidden="true" id="iconStart"></span>-->
+                        <!--<span class="glyphicon glyphicon-pause" aria-hidden="true" id="iconStop"></span>-->
+                        <!--<span id="syncTxt">同期 Start</span>-->
+                    <!--</button>-->
+                <!--</div>-->
+
+
+
+                <section>
+                    <p>LED Pattern</p>
+
+                    <div class="clearfix mb_10">
+
+                        <!--<button id="getNum">get num</button>-->
+
+                        <div class="clearfix">
+                            <h3 style="display: inline;margin-top: 10px;" class="pull-left">1 : &nbsp;</h3>
+
+                            <div class="btn-group faBtn-1" role="group">
+                                <button type="button" class="btn btn-lg ioBtn" value="1">白球</button>
+                                <button type="button" class="btn btn-lg btn-danger ioBtn" value="2">太陽
+                                </button>
+                                <button type="button" class="btn btn-lg btn-success ioBtn" value="3">森
+                                </button>
+                                <button type="button" class="btn btn-lg btn-primary ioBtn" value="4">海
+                                </button>
+                                <button type="button" class="btn btn-lg btn-warning ioBtn" value="5">雷
+                                </button>
+                                <button type="button" class="btn btn-lg btn-info ioBtn" value="6">雨
+                                </button>
+                                <button type="button" class="btn btn-lg btn-default ioBtn" value="7">虹
+                                </button>
+                                <button type="button" class="btn btn-lg btn-default ioBtn" value="8">花火
+                                </button>
+                                </button>
+                                <button type="button" class="btn btn-lg btn-gray ioBtn" value="0">-</button>
+                                &nbsp;<span id="faBtn-1-current">-</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <h3 style="display: inline;margin-top: 10px;" class="pull-left">2 : &nbsp;</h3>
+
+                            <div class="input-group" style="width: 20%">
+                                <input type="text" class="form-control" placeholder="pattern no" id="patternNum" style="margin-top: 5px;">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-default " type="button" id="ioTextBtn" style="margin-top: 5px;color: #000000;">Send</button>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--<div align="center" style="margin-top: 15px; margin-bottom: 15px;">-->
+                <!--<form>-->
+                    <!--<p>LED Pattern</p>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="1">Pattern 1</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="2">Pattern 2</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="3">Pattern 3</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="4">Pattern 4</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="5">Pattern 5</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="6">Pattern 6</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="7">Pattern 7</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="8">Pattern 8</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="9">Pattern 9</button>-->
+                    <!--<button class="btn btn-success ioBtn" type="button" value="10">Pattern 10</button>-->
+                <!--</form>-->
+            <!--</div>-->
+        </section>
+
+        <section style="display: block">
+            <h4 class="pull-left" style="margin-right: 20px;">音源
+            </h4>
+            <style>
+                .playBtn{
+                    position: absolute;
+                    z-index: 100;
+                    cursor: pointer;
+                    /*background-color: red;*/
+                    height: 35px;
+                }
+            </style>
+            <span class="playBtn">　</span>
+            <audio controls id="demoBgm" class="hey">
+                <!--<source src="sounds/bgm.ogg" type="audio/ogg">-->
+                <source src="sounds/138-Beethoven-Symphony-No5-1st-Re.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </section>
+
+        <script src="js/bootstrap.min.js"></script>
+    </div>
+    <!--<div style="margin: 10px auto 0 auto; text-align: center; font-size: 1.2em;">-->
+        <!--<a href="./index.html">TOPへ</a>-->
+    <!--</div>-->
+</div>
+</body>
+</html>
