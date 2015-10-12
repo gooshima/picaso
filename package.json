@@ -1,9 +1,0 @@
-{
-  "name": "socket-chat-example",
-  "version": "0.0.1",
-  "description": "it is first socket.io sample",
-  "dependencies": {
-    "express": "^4.13.1",
-    "serialport": "^1.7.4"
-  }
-}
